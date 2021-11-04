@@ -11,6 +11,8 @@ import Profile from "../screens/profile";
 const Drawer = createDrawerNavigator();
 
 
+///Entre///
+
 
 export default class AuthDrawer extends Component{
         constructor(){
