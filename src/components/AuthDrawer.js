@@ -97,7 +97,7 @@ export default class AuthDrawer extends Component{
                                 {()=> <Home />}
                             </Drawer.Screen>
                             <Drawer.Screen name='Profile'>
-                                {()=> <Profile user={this.state.user} signOut={()=>this.signOut()} creationTime={this.state.creationTime} lastSignInTime={this.state.lastSignIn}/>}
+                                {()=> <Profile user={this.state.user} creationTime={this.state.creationTime} lastSignInTime={this.state.lastSignIn} signOut={()=>this.signOut()} />}
                             </Drawer.Screen>
                             <Drawer.Screen name='Agregar'>
                                 {(drawerProps)=> <Agregar drawerProps={drawerProps}/>}

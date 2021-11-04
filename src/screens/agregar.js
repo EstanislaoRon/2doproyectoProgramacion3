@@ -9,6 +9,7 @@ class Agregar extends Component{
         this.state = {
             tittle : '',
             description: '',
+            userName: '',
         }
     }
 
@@ -18,6 +19,8 @@ class Agregar extends Component{
             tittle: this.state.tittle,
             description: this.state.description,
             createdAt: Date.now(),
+            likes:[], 
+            comments:[],
         })
         .then(response=>{
             this.setState({
