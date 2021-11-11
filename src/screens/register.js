@@ -19,7 +19,7 @@ class Register extends Component{
                     style ={styles.input}
                     placeholder = 'Introduzca su nombre de usuario'
                     keyboardType = 'user'
-                    secureTextEntry = {true}
+                    // secureTextEntry = {true}
                     onChangeText = { (text) => this.setState({userName: text})} 
                 />
                 <TextInput
