@@ -7,6 +7,7 @@ import Login from "../screens/login";
 import Agregar from "../screens/agregar";
 import { auth } from "../firebase/config";
 import Profile from "../screens/profile";
+import Search from "../screens/search";
 
 const Drawer = createDrawerNavigator();
 
@@ -29,7 +30,6 @@ export default class AuthDrawer extends Component{
 
         componentDidMount(){
             auth.onAuthStateChanged((user) =>{
-                console.log(user)
                 if(user){
                     this.setState({
                         loggedIn: true,
@@ -62,7 +62,7 @@ export default class AuthDrawer extends Component{
     ingresar(email, password){
         auth.signInWithEmailAndPassword(email, password)
         .then(response =>{ 
-            console.log(response.user)
+            console.log(response)
             this.setState({
                 loggedIn: true,
                 user: response.user.email,
@@ -100,6 +100,9 @@ export default class AuthDrawer extends Component{
                         <React.Fragment>
                             <Drawer.Screen name='Home'>
                                 {()=> <Home />}
+                            </Drawer.Screen>
+                            <Drawer.Screen name='Search'>
+                                {()=> <Search />}
                             </Drawer.Screen>
                             <Drawer.Screen name='Profile'>
                                 {()=> <Profile user={this.state.user} creationTime={this.state.creationTime} lastSignInTime={this.state.lastSignIn} signOut={()=>this.signOut()} />}

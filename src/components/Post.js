@@ -78,7 +78,7 @@ class Post extends Component{
         <React.Fragment>
             <View style={styles.conteiner}>
                 <View style={styles.contenedor}>
-                    <Text style={styles.nombre}>Producto creado por {this.props.info.data.userName}</Text>
+                    <Text style={styles.nombre}>{this.props.info.data.userName}</Text>
                     <Text style={styles.titulo}> {this.props.info.data.tittle}</Text>
                     <Image style={styles.photo} source={{uri: this.props.info.data.photo}}/>
                     <Text style={styles.descripcion}> {this.props.info.data.description}</Text>
@@ -104,15 +104,15 @@ class Post extends Component{
                                             animationType= "fade"
                                             transparent={false}
                                         >
-                                            <Text>handleModal</Text>
+                                            <Text>{this.props.info.data.comments}</Text>
                                                 <TouchableOpacity onPress={() =>this.closeModal()}>
                                                     <TouchableOpacity>
-                                                        <Text > Ver Comentarios</Text>
+                                                        <Text >ocultar Comentarios</Text>
                                                     </TouchableOpacity>
                                                 </TouchableOpacity>
                                         </Modal>
                                         :
-                                        <Text></Text>
+                                        <Text>{this.props.info.data.comments}</Text>
                                         
                                     }
                             </TouchableOpacity>
