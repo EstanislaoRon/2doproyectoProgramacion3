@@ -153,12 +153,12 @@ const styles = StyleSheet.create({
         left: '20%'
       },
     conteiner:{
-        backgroundColor: "orange",
+        backgroundColor: "white",
         marginBottom: 40,
         paddingTop: 30 ,
     },
     contenedor:{
-        backgroundColor: "orange",
+        backgroundColor: "white",
         marginBottom: 40,
         paddingTop: 30 ,
         height: '300px'
