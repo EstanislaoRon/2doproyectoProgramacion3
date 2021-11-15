@@ -60,7 +60,9 @@ const styles = StyleSheet.create({
         fontSize : '2.5rem',
         padding: 4 
     },
-    imagen:  {height: 400 }
+    imagen:  {
+        height: 400,
+     }
 })
 
 export default Home;
