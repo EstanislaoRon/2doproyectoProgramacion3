@@ -136,7 +136,9 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: 'blue'
+        borderColor: 'blue',
+        width: '25%',
+        left: '20%'
     },
     meGusta: {
         backgroundColor: 'green',
@@ -146,7 +148,9 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: 'blue'
+        borderColor: 'blue',
+        width: '25%',
+        left: '20%'
       },
     conteiner:{
         backgroundColor: "orange",
@@ -171,8 +175,9 @@ const styles = StyleSheet.create({
     },
     like:{
         textAlign: 'center',
+        top: '90%'
     },
     photo:{
-        height: '70%'
+        height: '70%',
     }
 })
