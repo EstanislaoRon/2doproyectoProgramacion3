@@ -20,6 +20,7 @@ export default class AuthDrawer extends Component{
             this.state={
                 loggedIn: false,
                 user: '',
+                userName:'',
                 error: '',
                 creationTime: '',
                 lastSignIn: '',
@@ -43,18 +44,20 @@ export default class AuthDrawer extends Component{
             })
         }
     registrarse(email, password, userName){
-        auth.createUserWithEmailAndPassword(email, password, userName)
+        auth.createUserWithEmailAndPassword(email, password)
         .then(response =>{ 
-            console.log(response)
-            this.setState({
+                response.user.updateProfile({
+                    displayName: userName
+                })
+                this.setState({
                 loggedIn: true, 
                 user: response.user.email,
+                })
             })
-        })
         .catch(error => { 
             console.log(error)
             this.setState({loggedIn: false})
-        })
+            })
     }
     ingresar(email, password){
         auth.signInWithEmailAndPassword(email, password)

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import {Text, StyleSheet, View, TouchableOpacity  } from 'react-native'
+import {Text, StyleSheet, View, TouchableOpacity, Touchable, Image  } from 'react-native'
 import { auth, db } from "../firebase/config";
 import firebase from "firebase";
+import  { Modal } from 'react-native'
+import { FlatList } from "react-native-gesture-handler";
 
 class Post extends Component{
     constructor(props){
@@ -9,6 +11,8 @@ class Post extends Component{
         this.state = {
            likes: 0,
            liked: false,
+           showModal: false,
+           comments: ''
         }
     }
     
@@ -58,6 +62,17 @@ class Post extends Component{
         .catch(error => console.log('Upss error encontrado '+error))
     } //Deslikear el posteo
 
+    handleModal(){
+        this.setState({
+            showModal: true
+        })
+    }
+    closeModal(){
+        this.setState({
+            showModal: false,
+        })
+    }
+
     render(){
     return(
         <React.Fragment>
@@ -65,9 +80,10 @@ class Post extends Component{
                 <View style={styles.contenedor}>
                     <Text style={styles.nombre}>Producto creado por {this.props.info.data.userName}</Text>
                     <Text style={styles.titulo}> {this.props.info.data.tittle}</Text>
+                    <Image style={styles.photo} source={{uri: this.props.info.data.photo}}/>
                     <Text style={styles.descripcion}> {this.props.info.data.description}</Text>
                     <Text style={styles.fecha}>{this.props.info.data.createdAt}</Text>
-                        <View>
+                <View>
                         { this.state.liked === true ?
                             <TouchableOpacity style={styles.quitarLike} onPress={()=>this.unLike()}>
                                 <Text > Quitar like</Text>
@@ -75,8 +91,31 @@ class Post extends Component{
                             <TouchableOpacity style={styles.meGusta} onPress={()=>this.like()}>
                                 <Text > Me gusta</Text>
                             </TouchableOpacity>
+                               
                         }
-                        <Text style={styles.like}>  likes: {this.state.likes}</Text>
+                             <Text style={styles.like}>  likes: {this.state.likes}</Text>
+                             <TouchableOpacity onPress={() =>this.handleModal()}>
+                                <TouchableOpacity>
+                                    <Text > Ver Comentarios</Text>
+                                </TouchableOpacity>
+                                    {
+                                        this.state.showModal ? 
+                                        <Modal visible={this.state.showModal}
+                                            animationType= "fade"
+                                            transparent={false}
+                                        >
+                                            <Text>handleModal</Text>
+                                                <TouchableOpacity onPress={() =>this.closeModal()}>
+                                                    <TouchableOpacity>
+                                                        <Text > Ver Comentarios</Text>
+                                                    </TouchableOpacity>
+                                                </TouchableOpacity>
+                                        </Modal>
+                                        :
+                                        <Text></Text>
+                                        
+                                    }
+                            </TouchableOpacity>
                     </View>
                 </View>
             </View>
@@ -89,9 +128,6 @@ export default Post
 
 
 const styles = StyleSheet.create({
-    conteiner:{
-        display:'flex'
-    },
     quitarLike: {
         backgroundColor: 'tomato',
         paddingHorizontal: 10,
@@ -112,12 +148,16 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderColor: 'blue'
       },
+    conteiner:{
+        backgroundColor: "orange",
+        marginBottom: 40,
+        paddingTop: 30 ,
+    },
     contenedor:{
         backgroundColor: "orange",
         marginBottom: 40,
-        display: 'flex',
-        paddingBottom: 30 ,
         paddingTop: 30 ,
+        height: '300px'
     },
     nombre:{
         textAlign: 'center',
@@ -131,5 +171,8 @@ const styles = StyleSheet.create({
     },
     like:{
         textAlign: 'center',
+    },
+    photo:{
+        height: '70%'
     }
 })

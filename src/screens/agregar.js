@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { TextInput, TouchableOpacity, Text, StyleSheet } from "react-native";
 import {db, auth} from '../firebase/config'
+import MyCamera from "../components/MyCamera";
 
 
 class Agregar extends Component{
@@ -9,7 +10,8 @@ class Agregar extends Component{
         this.state = {
             tittle : '',
             description: '',
-            userName: '',
+            showCamera: true,
+            photo: '',
         }
     }
 
@@ -21,6 +23,7 @@ class Agregar extends Component{
             createdAt: Date.now(),
             likes:[], 
             comments:[],
+            photo: this.state.photo,
         })
         .then(response=>{
             this.setState({
@@ -33,25 +36,41 @@ class Agregar extends Component{
             console.log(error)
         })
     }
+    onPhotoUpload(url){
+        this.setState({
+            showCamera: false,
+            photo: url,
+        })
+    }
+    
+
+
     render(){
         return(
             <>
-                <TextInput
-                    style ={styles.input}
-                    placeholder = 'Tittle'
-                    keyboardType = 'text'
-                    onChangeText = { (text) => this.setState({tittle: text})} 
-                />
-                <TextInput
-                    style ={styles.inputD}
-                    placeholder = 'Description'
-                    keyboardType = 'text'
-                    onChangeText = { (text) => this.setState({description: text})} 
-                />
-                <TouchableOpacity style = {styles.boton} onPress={()=> this.createPost()}>
-                    <Text style={styles.enviar}>Enviar</Text>
-                </TouchableOpacity>
-            </>
+            {
+            this.state.showCamera ? 
+             <MyCamera onPhotoUpload = {(url) => this.onPhotoUpload(url)}/>    
+            :
+                <React.Fragment>
+                    <TextInput
+                            style ={styles.input}
+                            placeholder = 'Tittle'
+                            keyboardType = 'text'
+                            onChangeText = { (text) => this.setState({tittle: text})} 
+                        />
+                    <TextInput
+                        style ={styles.inputD}
+                        placeholder = 'Description'
+                        keyboardType = 'text'
+                        onChangeText = { (text) => this.setState({description: text})} 
+                        />
+                    <TouchableOpacity style = {styles.boton} onPress={()=> this.createPost()}>
+                        <Text style={styles.enviar}>Enviar</Text>
+                    </TouchableOpacity>
+                </React.Fragment>
+            }
+          </>
         )
     }
     
