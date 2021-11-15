@@ -79,8 +79,8 @@ class Post extends Component{
             <View style={styles.conteiner}>
                 <View style={styles.contenedor}>
                     <Text style={styles.nombre}>{this.props.info.data.userName}</Text>
-                    <Text style={styles.titulo}> {this.props.info.data.tittle}</Text>
                     <Image style={styles.photo} source={{uri: this.props.info.data.photo}}/>
+                    <Text style={styles.titulo}> {this.props.info.data.tittle}</Text>
                     <Text style={styles.descripcion}> {this.props.info.data.description}</Text>
                     <Text style={styles.fecha}>{this.props.info.data.createdAt}</Text>
                 <View>
