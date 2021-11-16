@@ -17,8 +17,8 @@ class Login extends Component{
         render(){
             return(
                 <View style= {styles.container}>
-                <Text style={styles.error}>{this.props.error}</Text>
                 <Text style={styles.titulo}>Login de usuarios</Text>
+                <Text style={styles.error}>{this.props.error}</Text>
                 <TextInput
                     style ={styles.input}
                     placeholder = 'Introduzca su email'
