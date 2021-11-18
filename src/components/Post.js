@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import {Text, StyleSheet, View, TouchableOpacity, Touchable, Image  } from 'react-native'
+import {Text, StyleSheet, View, TouchableOpacity, Touchable, Image, Modal, TextInput  } from 'react-native'
 import { auth, db } from "../firebase/config";
 import firebase from "firebase";
-import  { Modal } from 'react-native'
 import { FlatList } from "react-native-gesture-handler";
 
 class Post extends Component{
@@ -30,6 +29,21 @@ class Post extends Component{
         } 
     } 
     
+    createComments(){        
+        let thisDoc = db.collection('posts').doc(this.props.info.id);
+
+        thisDoc.update(
+            { comments: firebase.firestore.FieldValue.arrayUnion(this.state.comments)}
+        )
+        .then(
+            this.setState({
+                comments: true,
+                comments: this.state.comments + 1,
+            },
+            console.log('Comentario'))
+            )
+        .catch(e => console.log(e))
+    }
     like(){        
         let thisDoc = db.collection('posts').doc(this.props.info.id);
 
@@ -64,7 +78,7 @@ class Post extends Component{
 
     handleModal(){
         this.setState({
-            showModal: true
+            showModal: true,
         })
     }
     closeModal(){
@@ -95,24 +109,34 @@ class Post extends Component{
                         }
                             <Text style={styles.like}>  likes: {this.state.likes}</Text>
                              <TouchableOpacity onPress={() =>this.handleModal()}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() =>this.handleModal()}>
                                     <Text > Ver Comentarios</Text>
                                 </TouchableOpacity>
                                     {
                                         this.state.showModal ? 
                                         <Modal visible={this.state.showModal}
-                                            animationType= "fade"
+                                            animationType= "slide"
                                             transparent={false}
                                         >
+                                            <TextInput
+                                                style ={styles.input}
+                                                placeholder = 'Ingresa tu comentario'
+                                                keyboardType = 'text'
+                                                onChangeText = { (text) => this.setState({comments: text})} 
+                                            />
+                                            <TouchableOpacity style = {styles.boton} onPress={()=> this.createComments()}>
+                                                <Text style={styles.enviar}>Enviar</Text>
+                                            </TouchableOpacity>
                                             <Text>{this.props.info.data.comments}</Text>
+                                        
                                                 <TouchableOpacity onPress={() =>this.closeModal()}>
-                                                    <TouchableOpacity>
-                                                        <Text >ocultar Comentarios</Text>
+                                                    <TouchableOpacity onPress={() =>this.closeModal()}>
+                                                        <Text >Ocultar Comentarios</Text>
                                                     </TouchableOpacity>
                                                 </TouchableOpacity>
                                         </Modal>
                                         :
-                                        <Text>{this.props.info.data.comments}</Text>
+                                        <Text>:{this.props.info.data.comments}</Text>
                                         
                                     }
                             </TouchableOpacity>
