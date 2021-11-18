@@ -93,7 +93,7 @@ class Post extends Component{
                             </TouchableOpacity>
                                
                         }
-                             <Text style={styles.like}>  likes: {this.state.likes}</Text>
+                            <Text style={styles.like}>  likes: {this.state.likes}</Text>
                              <TouchableOpacity onPress={() =>this.handleModal()}>
                                 <TouchableOpacity>
                                     <Text > Ver Comentarios</Text>

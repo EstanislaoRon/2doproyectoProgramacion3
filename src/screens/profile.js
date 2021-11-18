@@ -36,13 +36,13 @@ import Post from '../components/Post';
         
     render(){
       return(
-        console.log(this.state.props),
+        console.log(auth.currentUser),
         <View>
             <Text style={styles.nombre}>Nombre de usuario: {auth.currentUser.displayName}</Text>
             <Text style={styles.nombre}>Email: {auth.currentUser.email}</Text>
-            <Text style={styles.nombre}>Numero de post: {auth.currentUser.aa.$.a}</Text>
+            <Text style={styles.nombre}>Numero de post: {this.state.posts.length}</Text>
             <Text style={styles.fechas}>Fecha de creacion de cuenta: {auth.currentUser.metadata.creationTime}</Text>
-            <Text style={styles.fechas}>Ultimo ingreso con la cuenta: {auth.currentUser.metadata.lastSignInTime}</Text>            
+            <Text style={styles.fechas}>Ultimo ingreso con la cuenta: {auth.currentUser.metadata.lastSignInTime}</Text>                 
             <TouchableOpacity style={styles.boton} onPress={()=>auth.signOut()}>
                 <Text style={styles.enviar}>Log Out</Text>
             </TouchableOpacity>
