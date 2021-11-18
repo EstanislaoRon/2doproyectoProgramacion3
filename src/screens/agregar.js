@@ -17,6 +17,7 @@ class Agregar extends Component{
 
     createPost(){
         db.collection('posts').add({
+            owner: auth.currentUser.email,
             userName: auth.currentUser.displayName,
             tittle: this.state.tittle,
             description: this.state.description,
