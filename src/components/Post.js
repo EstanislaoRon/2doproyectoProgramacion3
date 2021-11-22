@@ -30,19 +30,37 @@ class Post extends Component{
     } 
     
     createComments(){        
-        let thisDoc = db.collection('posts').doc(this.props.info.id);
+        let comments = db.collection('posts').doc(this.props.info.id);
 
-        thisDoc.update(
-            { comments: firebase.firestore.FieldValue.arrayUnion(this.state.comments)}
+        comments.update(
+            { comments: firebase.firestore.FieldValue.arrayUnion({
+                comment: this.state.comments,
+                autor: auth.currentUser.email,
+            })}
         )
         .then(
             this.setState({
-                comments: true,
-                comments: this.state.comments + 1,
+                comments: "",
             },
             console.log('Comentario'))
             )
         .catch(e => console.log(e))
+    }
+    componentDidMount(){
+        db.collection('comments').where("posts", "==", this.state).orderBy('createdAt','desc').onSnapshot(
+            docs => {
+            let posts = [];
+            docs.forEach((doc)=>{
+                comments.push({
+                    comments: doc.id,
+                    data: doc.data()
+                })
+                this.setState({
+                    posts: posts,
+                    loading: false,
+                })
+            })
+            })
     }
     like(){        
         let thisDoc = db.collection('posts').doc(this.props.info.id);
@@ -122,13 +140,27 @@ class Post extends Component{
                                                 style ={styles.input}
                                                 placeholder = 'Ingresa tu comentario'
                                                 keyboardType = 'text'
-                                                onChangeText = { (text) => this.setState({comments: text})} 
+                                                onChangeText={text => this.setState({comments:text})} 
                                             />
-                                            <TouchableOpacity style = {styles.boton} onPress={()=> this.createComments()}>
+                                            <TouchableOpacity style = {styles.boton} 
+                                                onPress={()=> this.createComments()} 
+                                                disabled={this.state.comments === '' ? true : false }>
                                                 <Text style={styles.enviar}>Enviar</Text>
                                             </TouchableOpacity>
-                                            <Text>{this.props.info.data.comments}</Text>
-                                        
+                                            {this.props.info.data.comments.length > 0  ? 
+
+                                                    <View>
+
+                                                    <FlatList
+                                                        data = { this.props.info.data.comments}
+                                                        keyExtractor = { (item,id) => id.toString()}
+                                                        renderItem = { ({item}) => <Text >{item.autor}: {item.comment}</Text> }
+                                                    />
+                                                    </View>
+
+                                                    :
+                                                    <Text style={styles.title} > Aún no hay comentarios. Sé el primero en opinar</Text> 
+                                                    }
                                                 <TouchableOpacity onPress={() =>this.closeModal()}>
                                                     <TouchableOpacity onPress={() =>this.closeModal()}>
                                                         <Text >Ocultar Comentarios</Text>
@@ -136,7 +168,7 @@ class Post extends Component{
                                                 </TouchableOpacity>
                                         </Modal>
                                         :
-                                        <Text>:{this.props.info.data.comments}</Text>
+                                        <Text></Text>
                                         
                                     }
                             </TouchableOpacity>
