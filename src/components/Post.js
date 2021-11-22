@@ -159,7 +159,7 @@ class Post extends Component{
                                                     </View>
 
                                                     :
-                                                    <Text style={styles.title} > Aún no hay comentarios. Sé el primero en opinar</Text> 
+                                                    <Text style={styles.title} >Aún no hay comentarios. Sé el primero en opinar</Text> 
                                                     }
                                                 <TouchableOpacity onPress={() =>this.closeModal()}>
                                                     <TouchableOpacity onPress={() =>this.closeModal()}>
