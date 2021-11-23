@@ -1,63 +1,54 @@
-import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image, FlatList,ActivityIndicator, TextInput} from 'react-native';
-import Contador  from '../components/Contador';
+import React, {Component} from "react";
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Image, FlatList} from 'react-native';
 import { db } from '../firebase/config';
-import Post from '../components/Post';
-import AuthDrawer from '../components/AuthDrawer';
+import Posts from '../components/Post';
 
 class Search extends Component{
-    constructor(){
-        super();
-        this.state ={
+    constructor(props){
+        super(props);
+        this.state = {
             posts: [],
-            loading: false,
+            loadingPosts: true,
+            usuarioBuscado: ""
         }
     }
 
-    componentDidMount(){
 
-    }
-
-    saludar(){
-        return alert('me clickearon');
-    }
     search(text){
-        db.collection('posts').where('userName','==', text).onSnapshot(
-            docs => {
-                let posts = [];
-                docs.forEach((doc)=>{
-                    posts.push({
-                        id: doc.id,
-                        data: doc.data()
-                    })
-                    this.setState({
-                        posts: posts,
-                        loading: false,
-                    })
+        db.collection("posts")
+        .where('userName', '==', text)
+        .orderBy("createdAt", "desc")
+        .onSnapshot((docs) => {
+            let posts = [];
+            docs.forEach (doc => {
+                posts.push({
+                    id: doc.id,
+                    data: doc.data()
                 })
-                })
-            }
-    
+            })
+        this.setState({
+            posts: posts,
+            loading: false
+            })
+        })
+
+    }
 
     render(){
         return(
             <View>
-                <TextInput 
-                onChangeText={(text)=>this.search(text)}
-                />
-                {
-                    this.state.loading ? (<ActivityIndicator  size= 'large' color= 'teal'/>)
-                    :
-                    (   <FlatList 
-                        data = {this.state.posts}
-                        keyExtractor = { (item) => item.id.toString()}
-                        renderItem = { ({item}) => <Post info={item}/>}
-                    />)
-                }
+               <Text> Buscador de usuarios: </Text>
+               <TextInput onChangeText = {(text) => this.search(text)}/> 
+
+               <FlatList
+               data = {this.state.posts}
+               keyExtractor = { (item) => item.id.toString()}
+               renderItem = { ({item}) => <Posts info={item}/>}
+               />
+
             </View>
         )
     }
-
 }
 const styles = StyleSheet.create({
     titulo : {
