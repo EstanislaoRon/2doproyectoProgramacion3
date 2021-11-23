@@ -220,18 +220,24 @@ const styles = StyleSheet.create({
         height: '300px'
     },
     nombre:{
-        textAlign: 'center',
+        textAlign: 'left',
+        fontFamily: 'Verdana'
     },titulo:{
-        textAlign: 'center',
+        textAlign: 'left',
+        fontFamily: 'Verdana'
     },descripcion:{
-        textAlign: 'center',
+        textAlign: 'left',
+        fontFamily: 'Verdana'
     },fecha:{
         textAlign: 'center',
+        fontFamily: 'Verdana',
         color:'grey',
     },
     like:{
-        textAlign: 'center',
-        top: '90%'
+        textAlign: 'right',
+        position: 'absolute',
+        right: '30%',
+        top: '20%'
     },
     photo:{
         height: '70%',
