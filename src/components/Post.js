@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Text, StyleSheet, View, TouchableOpacity, Touchable, Image, Modal, TextInput  } from 'react-native'
+import {Text, StyleSheet, View, TouchableOpacity, Touchable, Image, Modal, TextInput  } from 'react-native';
 import { auth, db } from "../firebase/config";
 import firebase from "firebase";
 import { FlatList } from "react-native-gesture-handler";
