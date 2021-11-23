@@ -1,7 +1,7 @@
 import React, { Component } from "react";import { View, Text, TouchableOpacity, StyleSheet, FlatList,ActivityIndicator } from 'react-native';
 import { auth } from '../firebase/config';
 import { db } from '../firebase/config';
-import Post from '../components/Post';
+import Post from '../components/profilePost';
 
 //export default function Profile(props){
     class Profile extends Component{
@@ -33,7 +33,12 @@ import Post from '../components/Post';
                 })
                 })
         }
-        
+        delete(id){
+            let thisDoc = db.collection('posts').doc(id);
+            thisDoc.delete()
+                const postsFiltered = this.state.posts.filter(post => post.id != id)
+                this.setState({posts: postsFiltered});
+        }  
     render(){
       return(
         console.log(auth.currentUser),
@@ -52,7 +57,7 @@ import Post from '../components/Post';
                     (   <FlatList 
                         data = {this.state.posts}
                         keyExtractor = { (item) => item.id.toString()}
-                        renderItem = { ({item}) => <Post info={item}/>}
+                        renderItem = { ({item}) => <Post info={item} delete={(createAt)=>this.delete(createAt)}/>}
                     />)
                 }
         </View>
