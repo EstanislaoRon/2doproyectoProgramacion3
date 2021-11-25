@@ -43,11 +43,11 @@ import Post from '../components/profilePost';
       return(
         console.log(auth.currentUser),
         <View>
-            <Text style={styles.nombre}>Nombre de usuario: {auth.currentUser.displayName}</Text>
+            <Text style={styles.nombre}>Usuario: {auth.currentUser.displayName}</Text>
             <Text style={styles.nombre}>Email: {auth.currentUser.email}</Text>
-            <Text style={styles.nombre}>Numero de post: {this.state.posts.length}</Text>
-            <Text style={styles.fechas}>Fecha de creacion de cuenta: {auth.currentUser.metadata.creationTime}</Text>
-            <Text style={styles.fechas}>Ultimo ingreso con la cuenta: {auth.currentUser.metadata.lastSignInTime}</Text>                 
+            <Text style={styles.nombre}>Posts: {this.state.posts.length}</Text>
+            <Text style={styles.fechas}>Creacion: {auth.currentUser.metadata.creationTime}</Text>
+            <Text style={styles.fechas}>Ultimo ingreso: {auth.currentUser.metadata.lastSignInTime}</Text>                 
             <TouchableOpacity style={styles.boton} onPress={()=>auth.signOut()}>
                 <Text style={styles.enviar}>Log Out</Text>
             </TouchableOpacity>
@@ -71,9 +71,11 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: 'center',
         marginBottom: 20,
+        fontFamily: 'Verdana'
     },
     fechas:{
         textAlign: 'center',
+        bottom:'2%'
     },
     boton: {
         backgroundColor: 'green',
@@ -83,7 +85,10 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: 'blue'
+        borderColor: 'blue',
+        width: '35%',
+        left: '32%',
+        top: '0'
     },
     enviar:{
             color: 'white'

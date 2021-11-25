@@ -127,8 +127,8 @@ class profilePost extends Component{
                         }
                         <TouchableOpacity 
                             onPress={() => {this.props.delete(this.props.info.id)}}
-                            style={styles.quitarLike}>
-                            <Text style={styles.quitarLike}>Borrar Post</Text>
+                            style={styles.borrar}>
+                            <Text>Borrar</Text>
                         </TouchableOpacity>
                             <Text style={styles.like}>  likes: {this.state.likes}</Text>
                              <TouchableOpacity onPress={() =>this.handleModal()}>
@@ -225,20 +225,43 @@ const styles = StyleSheet.create({
         height: '300px'
     },
     nombre:{
-        textAlign: 'center',
+        textAlign: 'left',
+        fontFamily: 'Verdana'
     },titulo:{
-        textAlign: 'center',
+        textAlign: 'left',
+        fontFamily: 'Verdana'
     },descripcion:{
-        textAlign: 'center',
+        textAlign: 'left',
+        fontFamily: 'Verdana'
     },fecha:{
         textAlign: 'center',
         color:'grey',
     },
     like:{
         textAlign: 'center',
-        top: '90%'
+        fontFamily: 'Verdana',
+        top: '-30%'
     },
     photo:{
         height: '70%',
+    },
+    borrar:{
+        backgroundColor: 'tomato',
+        color:'white',
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: 'center',
+        borderRadius: 4,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: 'blue',
+        width: '25%',
+        left: '60%',
+        top: '-31%',
+        color: 'red'
     }
 })
+
+
+
+// style={styles.borrar}
