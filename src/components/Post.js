@@ -38,13 +38,12 @@ class Post extends Component{
                 autor: auth.currentUser.email,
             })}
         )
-        .then(
-            this.setState({
-                comments: "",
-            },
-            console.log('Comentario'))
-            )
-        .catch(e => console.log(e))
+        .then(() => {
+            console.log('Comentario realizado')
+        
+        })
+        .catch(e => console.log(e))    
+            
     }
     componentDidMount(){
         db.collection('comments').where("posts", "==", this.state).orderBy('createdAt','desc').onSnapshot(
